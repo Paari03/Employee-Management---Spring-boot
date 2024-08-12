@@ -1,6 +1,6 @@
-package com.i2i.employeeManagement.course.mapper;
+package com.i2i.employeeManagement.mapper;
 
-import com.i2i.employeeManagement.course.dto.CourseDto;
+import com.i2i.employeeManagement.dto.CourseDto;
 import com.i2i.employeeManagement.model.Course;
 
 public class CourseMapper {

@@ -1,12 +1,10 @@
-package com.i2i.employeeManagement.course.service;
-
-import com.i2i.employeeManagement.model.Course;
+package com.i2i.employeeManagement.service;
 
 import java.util.List;
 
+import com.i2i.employeeManagement.model.Course;
+
 public interface CourseService {
-
-
 
     Course saveCourse(Course course);
 

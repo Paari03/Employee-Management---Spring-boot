@@ -1,17 +1,27 @@
 package com.i2i.employeeManagement.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents a Department in the organization.
+ * This class contains details about the department's ID, name,
+ * and the employees in the department.
+ * Author: Paari
+ */
 @Entity
 @Table(name = "departments")
 @NoArgsConstructor
@@ -20,7 +30,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Department {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "department_id")
@@ -31,5 +40,8 @@ public class Department {
 
     @Column(name = "is_deleted")
     private boolean isDeleted;
+
+    @OneToMany(mappedBy = "department")
+    private List<Employee> employees;
 
 }

@@ -1,16 +1,17 @@
-package com.i2i.employeeManagement.course.controller;
+package com.i2i.employeeManagement.controller;
 
-import com.i2i.employeeManagement.course.dto.CourseDto;
-import com.i2i.employeeManagement.course.mapper.CourseMapper;
-import com.i2i.employeeManagement.course.service.CourseService;
-import com.i2i.employeeManagement.model.Course;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.i2i.employeeManagement.dto.CourseDto;
+import com.i2i.employeeManagement.mapper.CourseMapper;
+import com.i2i.employeeManagement.service.CourseService;
+import com.i2i.employeeManagement.model.Course;
 
 @RestController
 @RequestMapping("api/courses")
@@ -20,7 +21,7 @@ public class CourseController {
     private CourseService courseService;
 
     @PostMapping
-    public CourseDto createCourse(@RequestBody CourseDto courseDto) {
+    public CourseDto createCourse(CourseDto courseDto) {
         return CourseMapper.mapCourseDto(
                 courseService.saveCourse(
                         CourseMapper.mapCourse(
@@ -32,12 +33,12 @@ public class CourseController {
 
     @GetMapping
     public List<CourseDto> getCourses() {
-        List<CourseDto> courseDtos = new ArrayList<>();
+        List<CourseDto> courseDto = new ArrayList<>();
         List<Course> courses = courseService.retrieveCourses();
         for (Course course : courses) {
-            courseDtos.add(CourseMapper.mapCourseDto(course));
+            courseDto.add(CourseMapper.mapCourseDto(course));
         }
-        return courseDtos;
+        return courseDto;
     }
 
     @GetMapping("/{courseId}")
@@ -53,7 +54,7 @@ public class CourseController {
         Course course = courseService.retrieveCourseById(courseId);
         Course updatedCourse = CourseMapper.mapCourse(courseDto);
         updatedCourse.setCourseId(course.getCourseId());
-        return new ResponseEntity(
+        return new ResponseEntity<>(
                 CourseMapper.mapCourseDto(
                         courseService.updateCourse(
                                 updatedCourse)
@@ -64,7 +65,7 @@ public class CourseController {
     public ResponseEntity<Void> deleteEmployee(@PathVariable int courseId) {
         Course course = courseService.retrieveCourseById(courseId);
         courseService.deleteCourse(course);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

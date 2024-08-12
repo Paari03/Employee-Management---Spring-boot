@@ -1,4 +1,4 @@
-package com.i2i.employeeManagement.course.dto;
+package com.i2i.employeeManagement.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseDto {
-    private int id;
-    private String courseName;
+public class DepartmentDto {
+    private int departmentId;
+    private String departmentName;
 }

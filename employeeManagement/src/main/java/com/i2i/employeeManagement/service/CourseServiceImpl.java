@@ -1,14 +1,15 @@
-package com.i2i.employeeManagement.course.service;
-
-import com.i2i.employeeManagement.course.repository.CourseRepository;
-import com.i2i.employeeManagement.model.Course;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.i2i.employeeManagement.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.i2i.employeeManagement.repository.CourseRepository;
+import com.i2i.employeeManagement.model.Course;
+
 @Service
-public class CourseServiceImpl implements CourseService{
+public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
@@ -27,6 +28,7 @@ public class CourseServiceImpl implements CourseService{
     public Course retrieveCourseById(int courseId) {
         return courseRepository.findById(courseId).orElseThrow(null);
     }
+
     @Override
     public Course updateCourse(Course course) {
         return courseRepository.save(course);
