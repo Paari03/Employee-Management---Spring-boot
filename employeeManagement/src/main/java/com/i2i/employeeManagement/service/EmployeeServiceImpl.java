@@ -2,7 +2,6 @@ package com.i2i.employeeManagement.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import com.i2i.employeeManagement.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
-        Optional<Employee> employee = employeeRepository.findById(employeeDto.getEmployeeId());
+        Employee employee = employeeRepository.findById(employeeDto.getEmployeeId());
         Employee updatedEmployee = EmployeeMapper.mapEmployee(employeeDto);
         updatedEmployee.setEmployeeId(employeeDto.getEmployeeId());
         return EmployeeMapper.mapEmployeeDto(employeeRepository.save(employee));
@@ -70,7 +69,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Course course = courseService.retrieveCourseById(courseId);
         List<Course> courses = new ArrayList<>();
         courses.add(course);
-        if(employee.isPresent()) {
+        if(null != employee) {
             employee.setCourses(courses);
             EmployeeDto employeeDto;
             employeeDto = EmployeeMapper.mapEmployeeDto(employeeRepository.save(employee));

@@ -1,6 +1,5 @@
 package com.i2i.employeeManagement.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.i2i.employeeManagement.service.CourseService;
 import com.i2i.employeeManagement.service.DepartmentService;
 import com.i2i.employeeManagement.dto.EmployeeDto;
-import com.i2i.employeeManagement.mapper.EmployeeMapper;
 import com.i2i.employeeManagement.service.EmployeeService;
-import com.i2i.employeeManagement.model.Course;
-import com.i2i.employeeManagement.model.Department;
-import com.i2i.employeeManagement.model.Employee;
+
 
 /**
  * This Class is the Controller class.It can Handle all the HTTP request.
@@ -105,7 +101,7 @@ public class EmployeeController {
     /**
      * This method is to delete the Employee by Id.
      * @param employeeId
-     *     The Id of the employee to be Deleted.
+     *     The ID of the employee to be Deleted.
      */
     @DeleteMapping("/{employeeId}")
     public void deleteEmployee(@PathVariable int employeeId) {
