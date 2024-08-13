@@ -3,7 +3,7 @@ package com.i2i.employeeManagement.service;
 import java.util.List;
 
 import com.i2i.employeeManagement.dto.EmployeeDto;
-import com.i2i.employeeManagement.model.Employee;
+
 
 public interface EmployeeService {
 
@@ -45,10 +45,11 @@ public interface EmployeeService {
 
     /**
      * This methos is to delete employee by id.
-     * @param employeeId
-     *     It is the employee ID to be deleted
+     *
+     * @param employeeId It is the employee ID to be deleted
+     * @return
      */
-    void deleteEmployee(int employeeId);
+    boolean deleteEmployee(int employeeId);
 
     /**
      * This Method is to add course to the employee.

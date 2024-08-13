@@ -9,5 +9,8 @@ import com.i2i.employeeManagement.model.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
+
     List<Employee> findByIsDeletedFalse();
+
+    Employee findByEmployeeIdAndIsDeletedFalse(int employeeId);
 }
