@@ -49,7 +49,7 @@ public class EmployeeMapper {
         if(!EmployeeValidator.stringValidator(employeeDto.getEmployeeName()))
             name = employeeDto.getEmployeeName();
         else
-            throw new EmployeeException("Give Valid method");
+            throw new EmployeeException("Give Valid Input");
 
         return Employee.builder()
                 .employeeId(employeeDto.getEmployeeId())
