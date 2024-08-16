@@ -24,7 +24,7 @@ public class CourseController {
 
     /**
      * This Method is to add Course to the Database.
-     * @param courseDto
+     * @param courseDto {@link CourseDto}
      *     It contains the Course name and the ID will be Auto Generated.
      * @return CourseDto
      *     It contains the Course details which is added to the database.
@@ -61,12 +61,12 @@ public class CourseController {
 
     /**
      * This Method is to update Course in the Database.
-     * @param courseDto {@Link -CourseDto}
+     * @param courseDto {@link -CourseDto}
      *     It contains the Course name and the ID of the Course.
      * @return CourseDto
      *     It contains the Course details which is updated in the database.
      */
-    @PutMapping("/{courseId}")
+    @PutMapping
     public ResponseEntity<CourseDto> updateCourse(@RequestBody CourseDto courseDto) {
         return new ResponseEntity<>(courseService.updateCourse (courseDto),HttpStatus.OK);
     }
@@ -77,7 +77,7 @@ public class CourseController {
      *     It is id of the employee to be deleted.
      */
     @DeleteMapping("/{courseId}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable int courseId){
+    public ResponseEntity<Void> deleteCourse(@PathVariable int courseId){
         if (courseService.deleteCourse(courseId)) {
             return new ResponseEntity<>(HttpStatus.OK);
         }

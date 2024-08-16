@@ -66,7 +66,7 @@ public class DepartmentController {
      * @return DepartmentDto
      *     It contains the Department details which is updated in the database.
      */
-    @PutMapping("/{departmentId}")
+    @PutMapping
     public ResponseEntity<DepartmentDto> updateDepartment(@RequestBody DepartmentDto departmentDto) {
         return new ResponseEntity<>(departmentService.updateDepartment (departmentDto),HttpStatus.OK);
     }

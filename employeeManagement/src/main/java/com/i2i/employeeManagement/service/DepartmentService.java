@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.i2i.employeeManagement.dto.DepartmentDto;
 import com.i2i.employeeManagement.dto.EmployeeDto;
+import com.i2i.employeeManagement.model.Department;
 
 
 public interface DepartmentService {
@@ -34,6 +35,15 @@ public interface DepartmentService {
      *     It contains the single Department Details.
      */
     DepartmentDto retrieveDepartmentById(int departmentId);
+
+    /**
+     * This Method is to retrieve department by id.
+     * @param departmentId
+     *     It is the Id of the department to be returned.
+     * @return departmentDto
+     *     It contains the single Department Details.
+     */
+    Department retrieveDepartmentForEmployee(int departmentId);
 
     /**
      * This method is to update the department details.

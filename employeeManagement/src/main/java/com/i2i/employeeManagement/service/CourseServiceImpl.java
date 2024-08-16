@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+
+import com.i2i.employeeManagement.exceptionHandler.EmployeeException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,49 +28,68 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseDto saveCourse(CourseDto courseDto) {
-        Course course = courseRepository.save(CourseMapper.mapCourse(courseDto));
-        return CourseMapper.mapCourseDto(course);
+        String courseName = courseDto.getCourseName();
+        List<Course> course = courseRepository.findByIsDeletedFalse();
+        for (Course course1 : course) {
+            if (courseName.equals(course1.getCourseName())) {
+                logger.warn("The Course {} Already Exist",courseName);
+                throw new EmployeeException("The Course -"
+                        + courseName +" already exist");
+            }
+        }
+        Course course1 = CourseMapper.mapCourse(courseDto);
+        return CourseMapper.mapCourseDto(courseRepository.save(course1));
     }
 
     @Override
     public List<CourseDto> retrieveCourses() {
         List<CourseDto> courseDto = new ArrayList<>();
-        List<Course> courses = courseRepository.findByIsDeletedFalse();
-        if(null == courses) {
-            throw new NoSuchElementException();
-        }
+        List<Course> courses = courseRepository.findAll();
         for (Course course : courses) {
             courseDto.add(CourseMapper.mapCourseDto(course));
         }
         return courseDto;
+
     }
 
     @Override
     public CourseDto retrieveCourseById(int courseId) {
-        Course course = courseRepository.findByCourseIdAndIsDeletedFalse(courseId);
-        if(null == course) {
-            throw new NoSuchElementException();
+        Course course = courseRepository.
+                findByCourseIdAndIsDeletedFalse(courseId);
+        if (null == course) {
+            logger.warn(" CourseId- {} Not found",courseId );
+            exceptionHandling(courseId);
         }
         return CourseMapper.mapCourseDto(course);
-
     }
 
     @Override
     public CourseDto updateCourse(CourseDto courseDto) {
-        Course updatedCourse = CourseMapper.mapCourse(courseDto);
-        Course course = courseRepository.save(updatedCourse);
-        return CourseMapper.mapCourseDto(course);
+        int courseId = courseDto.getCourseId();
+        Course course = courseRepository.
+                findByCourseIdAndIsDeletedFalse(courseId);
+        if (null == course) {
+            logger.warn("The Update Course Id {}does not exist",
+                    courseId);
+            exceptionHandling(courseId);
+        }
+        Course updatedCourse = CourseMapper.mapCourse(
+                courseDto);
+        return CourseMapper.mapCourseDto(
+                courseRepository.save(updatedCourse));
     }
 
     @Override
     public boolean deleteCourse(int courseId) {
-        Course course = courseRepository.findById(courseId).orElse(null);
-        if (null != course) {
-            course.setDeleted(true);
-            courseRepository.save(course);
-            return true;
+        Course course = courseRepository.
+                findByCourseIdAndIsDeletedFalse(courseId);
+        if (null == course) {
+            logger.warn("No Course found for courseId-{}",courseId);
+            exceptionHandling(courseId);
         }
-        return false;
+        course.setDeleted(true);
+        courseRepository.save(course);
+        return true;
     }
 
     @Override
@@ -76,7 +97,7 @@ public class CourseServiceImpl implements CourseService {
         Course course = courseRepository.findByCourseIdAndIsDeletedFalse(courseId);
         if(null == course) {
             logger.warn("There is no course found for {}",courseId);
-            throw new NoSuchElementException();
+            exceptionHandling(courseId);
         }
         List<EmployeeDto> employeeDto = new ArrayList<>();
         for (Employee employee : course.getEmployees()) {
@@ -85,5 +106,8 @@ public class CourseServiceImpl implements CourseService {
             }
         }
         return employeeDto;
+    }
+    private void exceptionHandling(int courseId){
+        throw new NoSuchElementException("The Course Id - "+ courseId+" does not exist");
     }
 }

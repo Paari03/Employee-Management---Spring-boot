@@ -35,7 +35,7 @@ public class Course {
     @Column(name = "course_id")
     private int courseId;
 
-    @Column(name = "course_name")
+    @Column(name = "course_name", unique = true)
     private String courseName;
 
     @Column(name = "is_deleted")

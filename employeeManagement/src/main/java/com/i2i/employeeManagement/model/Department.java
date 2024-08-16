@@ -20,7 +20,7 @@ import lombok.Setter;
  * Represents a Department in the organization.
  * This class contains details about the department's ID, name,
  * and the employees in the department.
- * Author: Paari
+ * @author paari
  */
 @Entity
 @Table(name = "departments")

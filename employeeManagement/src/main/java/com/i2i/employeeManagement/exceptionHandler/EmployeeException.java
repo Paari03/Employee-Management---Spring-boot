@@ -1,4 +1,4 @@
-package com.i2i.employeeManagement.exception;
+package com.i2i.employeeManagement.exceptionHandler;
 
 
 /**

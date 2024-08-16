@@ -1,16 +1,18 @@
 package com.i2i.employeeManagement.dto;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 /**
- * This is the Employee Dto class Which contains
- * the EmployeeId,employeeName,age,DateOfBirth,City,DepartmentId,
+ * <p>
+ * This is the Employee Dto class Which contains the EmployeeId,
+ * employeeName,age,DateOfBirth,City,DepartmentId,
  * DepartmentName,CourseName.
+ * </p>
  */
 @Builder
 @Getter
