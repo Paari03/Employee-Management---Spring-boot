@@ -1,9 +1,6 @@
 package com.i2i.employeeManagement.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * This is the DepartmentDto class which contains departmentId And Department Name.
@@ -13,7 +10,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
 public class DepartmentDto {
     private int departmentId;
     private String departmentName;
+
 }

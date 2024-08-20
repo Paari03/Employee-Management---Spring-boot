@@ -34,13 +34,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
-//        int employeeId = employeeDto.getEmployeeId();
-//        Employee employee1 = employeeRepository.findByEmployeeIdAndIsDeletedFalse(employeeId);
-//        if (null == employee1) {
-//            logger.warn("The Employee Id Already Exist");
-//            throw new EmployeeException("The Employee Id already exist - "+ employeeId);
-//        }
-
         Employee employee = EmployeeMapper.mapEmployee(employeeDto);
         Department department = departmentService.retrieveDepartmentForEmployee(employeeDto.getDepartmentId());
         employee.setDepartment(department);
@@ -70,12 +63,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
-//        int employeeId = employeeDto.getEmployeeId();
-//        Employee employee = employeeRepository.findByEmployeeIdAndIsDeletedFalse(employeeId);
-//        if (null == employee) {
-//            logger.warn("Wrong Employee Id for updation of employee");
-//            exceptionHandling(employeeId);
-//        }
+        int employeeId = employeeDto.getEmployeeId();
+        Employee employee = employeeRepository.findByEmployeeIdAndIsDeletedFalse(employeeId);
+        if (null == employee) {
+            logger.warn("Wrong Employee Id for updation of employee");
+            exceptionHandling(employeeId);
+        }
         Employee updatedEmployee = EmployeeMapper.mapEmployee(employeeDto);
         return EmployeeMapper.mapEmployeeDto(employeeRepository.save(updatedEmployee));
     }
@@ -99,15 +92,26 @@ public class EmployeeServiceImpl implements EmployeeService {
             logger.warn("There is no Employee in that EmployeeId");
             exceptionHandling(employeeId);
         }
-        for (Course course : employee.getCourses()) {
-            if (courseId == course.getCourseId()) {
-                logger.warn("Course-{} already assigned to employeeID-{}",
-                        course.getCourseName(), employeeId);
-                throw new EmployeeException("Course already assigned to this employeeID");
+        if(null != employee.getCourses()) {
+            for (Course course : employee.getCourses()) {
+                if (courseId == course.getCourseId()) {
+                    logger.warn("Course-{} already assigned to employeeID-{}",
+                            course.getCourseName(), employeeId);
+                    throw new EmployeeException("Course already assigned to this employeeID");
+                }
             }
         }
+
         Course course = CourseMapper.mapCourse(courseService.retrieveCourseById(courseId));
-        List<Course> courses = employee.getCourses();
+        if(null != employee.getCourses()){
+            List<Course> courses = employee.getCourses();
+            courses.add(course);
+            employee.setCourses(courses);
+            EmployeeDto employeeDto;
+            employeeDto = EmployeeMapper.mapEmployeeDto(employeeRepository.save(employee));
+            return employeeDto;
+        }
+        List<Course> courses = new ArrayList<>();
         courses.add(course);
         employee.setCourses(courses);
         EmployeeDto employeeDto;

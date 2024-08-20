@@ -55,8 +55,9 @@ public class CourseController {
      *     It contains the Single course.
      */
     @GetMapping("/{courseId}")
-    public CourseDto getCourses(@PathVariable int courseId) {
-        return courseService.retrieveCourseById(courseId);
+    public ResponseEntity<CourseDto> getCourseById(@PathVariable int courseId) {
+
+        return new ResponseEntity<>(courseService.retrieveCourseById(courseId),HttpStatus.OK);
     }
 
     /**
@@ -77,7 +78,7 @@ public class CourseController {
      *     It is id of the employee to be deleted.
      */
     @DeleteMapping("/{courseId}")
-    public ResponseEntity<Void> deleteCourse(@PathVariable int courseId){
+    public ResponseEntity<Void> deleteCourseById(@PathVariable int courseId){
         if (courseService.deleteCourse(courseId)) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -91,7 +92,7 @@ public class CourseController {
      * @return List<EmployeeDto>
      *     It contains all the employee details.
      */
-    @GetMapping("/EmployeesByCourse/{courseId}")
+    @GetMapping("/{courseId}/employees")
     public List<EmployeeDto> getEmployeesByCourse (@PathVariable int courseId) {
         return courseService.retrieveEmployeesByCourse(courseId);
     }

@@ -49,7 +49,7 @@ public class EmployeeController {
      * @return employeeDto
      *     It contains the employee with the course assigned.
      */
-    @PutMapping("{employeeId}/assignCourse/{courseId}")
+    @PutMapping("{employeeId}/courses/{courseId}")
     public ResponseEntity<EmployeeDto> assignCourseToEmployee(
             @PathVariable int employeeId, @PathVariable int courseId ){
         EmployeeDto employeeDto = employeeService.addCourseToEmployee
@@ -107,7 +107,7 @@ public class EmployeeController {
      *     The ID of the employee to be Deleted.
      */
     @DeleteMapping("/{employeeId}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable int employeeId) {
+    public ResponseEntity<Void> deleteEmployeeById(@PathVariable int employeeId) {
 
         if(employeeService.deleteEmployee(employeeId)) {
             logger.info("Employee Id -{}deleted Successfully",employeeId);

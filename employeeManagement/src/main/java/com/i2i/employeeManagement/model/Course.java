@@ -2,6 +2,7 @@ package com.i2i.employeeManagement.model;
 
 import java.util.List;
 
+import com.i2i.employeeManagement.dto.CourseDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -44,7 +44,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<CourseDto> retrieveCourses() {
         List<CourseDto> courseDto = new ArrayList<>();
-        List<Course> courses = courseRepository.findAll();
+        List<Course> courses = courseRepository.findByIsDeletedFalse();
         for (Course course : courses) {
             courseDto.add(CourseMapper.mapCourseDto(course));
         }

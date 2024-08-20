@@ -1,7 +1,9 @@
 package com.i2i.employeeManagement.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import com.i2i.employeeManagement.model.Course;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,5 +29,6 @@ public class EmployeeDto {
     private String address;
     private int departmentId;
     private String departmentName;
+    private List<Course> courses;
     private StringBuilder courseName;
 }

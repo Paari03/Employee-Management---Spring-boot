@@ -55,8 +55,8 @@ public class DepartmentController {
      *     It contains the Single department.
      */
     @GetMapping("/{departmentId}")
-    public DepartmentDto getDepartments(@PathVariable int departmentId) {
-        return departmentService.retrieveDepartmentById(departmentId);
+    public ResponseEntity<DepartmentDto> getDepartmentById(@PathVariable int departmentId) {
+        return new ResponseEntity<>(departmentService.retrieveDepartmentById(departmentId),HttpStatus.OK);
     }
 
     /**
@@ -92,7 +92,7 @@ public class DepartmentController {
      * @return List<EmployeeDto>
      *     It contains all the employee details.
      */
-    @GetMapping("/EmployeesByDepartment/{departmentId}")
+    @GetMapping("/{departmentId}/employees")
     public List<EmployeeDto> getEmployeesByDepartment (@PathVariable int departmentId) {
         return departmentService.retrieveEmployeesByDepartment(departmentId);
     }

@@ -7,7 +7,6 @@ import com.i2i.employeeManagement.exceptionHandler.EmployeeException;
 import com.i2i.employeeManagement.model.Employee;
 import com.i2i.employeeManagement.util.DisplayCourses;
 import com.i2i.employeeManagement.util.EmployeeUtil;
-import com.i2i.employeeManagement.util.EmployeeValidator;
 
 /**
  * This class have methods to convert Employee to employeeDto.
@@ -45,15 +44,11 @@ public class EmployeeMapper {
      *     It is the converted Employee object which contains Employee Details.
      */
     public static Employee mapEmployee(EmployeeDto employeeDto) {
-        String name = "";
-        if(!EmployeeValidator.stringValidator(employeeDto.getEmployeeName()))
-            name = employeeDto.getEmployeeName();
-        else
-            throw new EmployeeException("Give Valid Input");
+
 
         return Employee.builder()
                 .employeeId(employeeDto.getEmployeeId())
-                .employeeName(name)
+                .employeeName(employeeDto.getEmployeeName())
                 .dateOfBirth(employeeDto.getDateOfBirth())
                 .city(employeeDto.getCity())
                 .address(employeeDto.getAddress())

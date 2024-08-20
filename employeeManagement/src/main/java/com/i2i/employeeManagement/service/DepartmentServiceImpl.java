@@ -68,7 +68,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         Department department = departmentRepository.
                 findByDepartmentIdAndIsDeletedFalse(departmentId);
         if (null == department) {
-            logger.warn(" DepartmentId- {} Not found",departmentId );
+            logger.warn(" DepartmentId- {} found",departmentId );
             exceptionHandling(departmentId);
         }
         return department;
